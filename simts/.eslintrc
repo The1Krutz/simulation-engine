@@ -1,0 +1,106 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "jasmine"
+  ],
+  "env": {
+    "es6": true,
+    "node": true,
+    "jasmine": true
+  },
+  "root": true,
+  "extends": [
+    // "eslint:all",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jasmine/recommended"
+    // "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "rules": {
+    "@typescript-eslint/no-inferrable-types": "warn",
+    "@typescript-eslint/type-annotation-spacing": [
+      "warn",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "indent": "off", // disabled for typescript to take over
+    "@typescript-eslint/indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "array-bracket-spacing": "warn",
+    "arrow-spacing": "warn",
+    "brace-style": [
+      "warn",
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "comma-spacing": "warn",
+    "eqeqeq": [
+      "warn",
+      "smart"
+    ],
+    "key-spacing": "warn",
+    "keyword-spacing": "warn",
+    "no-debugger": "warn",
+    "no-irregular-whitespace": "warn",
+    "no-multi-spaces": "warn",
+    "no-trailing-spaces": "warn",
+    "no-unreachable": "warn",
+    "no-unused-vars": "off", // disabled for typescript to take over
+    "@typescript-eslint/no-unused-vars": [
+      "warn"
+    ],
+    "no-whitespace-before-property": "warn",
+    "object-curly-spacing": "warn",
+    "quotes": [
+      "warn",
+      "single",
+      {
+        "allowTemplateLiterals": true,
+        "avoidEscape": true
+      }
+    ],
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "semi-spacing": "warn",
+    "sort-imports": [
+      "warn",
+      {
+        "allowSeparatedGroups": true,
+        "ignoreCase": true,
+        "ignoreDeclarationSort": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": [
+          "all",
+          "multiple",
+          "none",
+          "single"
+        ]
+      }
+    ],
+    "space-before-blocks": "warn",
+    "space-in-parens": "warn",
+    "space-infix-ops": "off", // disabled for typescript to take over
+    "@typescript-eslint/space-infix-ops": [
+      "warn",
+      {
+        "int32Hint": false
+      }
+    ]
+  }
+}

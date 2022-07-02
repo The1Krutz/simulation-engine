@@ -21,7 +21,7 @@ var Mover = /** @class */ (function () {
         }
     };
     Mover.prototype.toString = function () {
-        return "Mover " + this.Id + " - Pos: " + this.Position.toString() + ", Vel: " + this.Velocity.toString() + ", Color: " + this.Color;
+        return "Mover ".concat(this.Id, " - Pos: ").concat(this.Position.toString(), ", Vel: ").concat(this.Velocity.toString(), ", Color: ").concat(this.Color);
     };
     return Mover;
 }());
@@ -34,7 +34,7 @@ var Vector2 = /** @class */ (function () {
         this.Y = Y;
     }
     Vector2.prototype.toString = function () {
-        return "(X:" + this.X + ", Y:" + this.Y + ")";
+        return "(X:".concat(this.X, ", Y:").concat(this.Y, ")");
     };
     Vector2.Random = function (max, min) {
         if (max === void 0) { max = 100; }
