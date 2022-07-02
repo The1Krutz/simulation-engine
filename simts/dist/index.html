@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO chat</title>
+    <meta charset="utf-8">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="static/two.js"></script>
+</head>
+
+<body>
+    <div id="draw-shapes"></div>
+    <script>
+        // drawing stuff
+        var elem = document.getElementById('draw-shapes');
+        var params = { width: 500, height: 500 };
+        var two = new Two(params).appendTo(elem);
+
+        var border = two.makeRectangle(250, 250, 500, 500);
+        border.stroke = 'black';
+        border.linewidth = 3;
+
+        var circles = {};
+
+        // socket stuff
+        var socket = io();
+        socket.on('update', (movers, moverstring) => {
+            movers.forEach(mover => {
+                if (circles[mover.Id]) {
+                    // console.log('moving existing circle', mover.Id)
+                    circles[mover.Id].translation.set(mover.Position.X, mover.Position.Y);
+                } else {
+                    // console.log('creating new circle', mover.Id)
+                    circles[mover.Id] = two.makeCircle(mover.Position.X, mover.Position.Y, 5);
+                    circles[mover.Id].fill = mover.Color;
+                }
+            });
+
+            two.update();
+        })
+
+        socket.on('remove', id => {
+            // console.log('explicitly removing', id)
+            two.remove(circles[id]);
+            circles[id] = undefined;
+        })
+    </script>
+</body>
+
+</html>
