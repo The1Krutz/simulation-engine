@@ -3,7 +3,8 @@ import * as http from 'http';
 import * as socketio from 'socket.io';
 import {performance} from 'perf_hooks';
 
-import {Mover, Vector2} from './src/engine';
+import {Float2} from './src/float2';
+import {Mover} from './src/engine';
 
 const app = express();
 const server = http.createServer(app);
@@ -61,15 +62,15 @@ function gameUpdate() {
   io.in(Rooms.GameUpdates).emit(Events.Update, movers, getMoverString(movers));
 }
 
-function addMover(id) {
+function addMover(id: number) {
   movers.push(new Mover(
     id,
-    Vector2.Random(500, 50),
-    Vector2.Random(150, 50)
+    Float2.Random(500, 50),
+    Float2.Random(150, 50)
   ));
 }
 
-function removeMover(id) {
+function removeMover(id: number) {
   movers = movers.filter(z => z.Id !== id);
 }
 

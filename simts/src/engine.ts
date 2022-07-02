@@ -1,14 +1,15 @@
+import {Float2} from './float2';
+import {randomColor} from './helpers';
 
 export class Mover {
   public Color: string;
 
   constructor(
     public Id: number,
-    public Position = new Vector2(),
-    public Velocity = new Vector2()
+    public Position = new Float2(),
+    public Velocity = new Float2()
   ) {
     this.Color = randomColor();
-
   }
 
   public Update(deltaTime: number) {
@@ -26,31 +27,4 @@ export class Mover {
   public toString() {
     return `Mover ${this.Id} - Pos: ${this.Position.toString()}, Vel: ${this.Velocity.toString()}, Color: ${this.Color}`;
   }
-}
-
-export class Vector2 {
-  constructor(
-    public X = 0,
-    public Y = 0
-  ) { }
-
-  public toString() {
-    return `(X:${this.X}, Y:${this.Y})`;
-  }
-
-  public static Random(max = 100, min = 0) {
-    return new Vector2(
-      (Math.random() * (max - min)) + min,
-      (Math.random() * (max - min)) + min
-    );
-  }
-}
-
-
-function randomColor() {
-  function randomHexa() {
-    const hexa = '0123456789ABCDEF';
-    return hexa[Math.floor(Math.random() * hexa.length)];
-  }
-  return '#' + randomHexa() + randomHexa() + randomHexa() + randomHexa() + randomHexa() + randomHexa();
 }
