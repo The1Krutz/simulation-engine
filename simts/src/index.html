@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Socket.IO chat</title>
+    <title>movers</title>
     <meta charset="utf-8">
     <script src="/socket.io/socket.io.js"></script>
     <script src="static/two.js"></script>
@@ -25,6 +25,7 @@
         // socket stuff
         const socket = io();
         socket.on('update', (movers, moverstring) => {
+            // console.log(moverstring)
             movers.forEach(mover => {
                 if (circles[mover.id]) {
                     // console.log('moving existing circle', mover.id)

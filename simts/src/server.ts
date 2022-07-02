@@ -1,14 +1,13 @@
 import * as express from 'express';
 import * as http from 'http';
-import * as socketio from 'socket.io';
+import {Server, Socket} from 'socket.io';
 import {performance} from 'perf_hooks';
 
-import {float2} from './float2';
-import {mover} from './engine';
+import {mover} from './mover';
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = new Server(server);
 const port = 3000;
 
 enum events {
@@ -39,12 +38,13 @@ setInterval(gameUpdate, frameTime);
 let frameStart = 0;
 let movers: mover[] = [];
 
-function onConnect(socket: socketio.Socket) {
-  const id = Math.floor(Math.random() * 100000);
+function onConnect(socket: Socket) {
+  const newMover = mover.fromRandom();
+  const id = newMover.id;
   console.log(`user ${id} connected`);
   socket.join(rooms.gameUpdates);
 
-  addMover(id);
+  addMover(newMover);
   socket.on(events.disconnect, () => {
     console.log(`user ${id} disconnected`);
     removeMover(id);
@@ -62,12 +62,8 @@ function gameUpdate() {
   io.in(rooms.gameUpdates).emit(events.update, movers, getMoverString(movers));
 }
 
-function addMover(id: number) {
-  movers.push(new mover(
-    id,
-    float2.fromRandom(500, 50),
-    float2.fromRandom(150, 50)
-  ));
+function addMover(mover: mover) {
+  movers.push(mover);
 }
 
 function removeMover(id: number) {

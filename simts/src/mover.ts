@@ -25,6 +25,18 @@ export class mover {
   }
 
   public toString() {
-    return `Mover ${this.id} - Pos: ${this.position.toString()}, Vel: ${this.velocity.toString()}, Color: ${this.color}`;
+    return `mover ${this.id} - pos: ${this.position.toString()}, vel: ${this.velocity.toString()}, color: ${this.color}`;
+  }
+
+  public static fromRandom(id?: number, position?: float2, velocity?: float2): mover {
+    return new mover(
+      id != null ? id : mover.randomId(),
+      position != null ? position : float2.fromRandom({max: 500, min: 50}),
+      velocity != null ? velocity : float2.fromRandom({max: 150, min: 50}),
+    );
+  }
+
+  private static randomId() {
+    return Math.floor(Math.random() * 100000);
   }
 }
