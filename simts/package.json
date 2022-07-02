@@ -5,11 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && node index.js",
+    "start": "ts-node index.ts",
     "dev": "nodemon index.ts",
-    "tsc": "tsc",
     "build": "tsc",
-    "clean":"rm index.js src/**/*.js"
+    "clean": "rm -f index.js; find src -name \"*.js\" -type f -delete"
   },
   "keywords": [],
   "author": "",
