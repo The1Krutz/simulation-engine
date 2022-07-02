@@ -1,30 +1,30 @@
-import {Float2} from './float2';
+import {float2} from './float2';
 import {randomColor} from './helpers';
 
-export class Mover {
-  public Color: string;
+export class mover {
+  public color: string;
 
   constructor(
-    public Id: number,
-    public Position = new Float2(),
-    public Velocity = new Float2()
+    public id: number,
+    public position = new float2(),
+    public velocity = new float2()
   ) {
-    this.Color = randomColor();
+    this.color = randomColor();
   }
 
-  public Update(deltaTime: number) {
-    this.Position.X += this.Velocity.X * deltaTime;
-    this.Position.Y += this.Velocity.Y * deltaTime;
+  public update(deltaTime: number) {
+    this.position.x += this.velocity.x * deltaTime;
+    this.position.y += this.velocity.y * deltaTime;
 
-    if (this.Position.X > 500 || this.Position.X < 0) {
-      this.Velocity.X *= -1;
+    if (this.position.x > 500 || this.position.x < 0) {
+      this.velocity.x *= -1;
     }
-    if (this.Position.Y > 500 || this.Position.Y < 0) {
-      this.Velocity.Y *= -1;
+    if (this.position.y > 500 || this.position.y < 0) {
+      this.velocity.y *= -1;
     }
   }
 
   public toString() {
-    return `Mover ${this.Id} - Pos: ${this.Position.toString()}, Vel: ${this.Velocity.toString()}, Color: ${this.Color}`;
+    return `Mover ${this.id} - Pos: ${this.position.toString()}, Vel: ${this.velocity.toString()}, Color: ${this.color}`;
   }
 }

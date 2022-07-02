@@ -5,10 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node index.ts",
-    "dev": "nodemon index.ts",
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "clean": "rm -f index.js; find src -name \"*.js\" -type f -delete"
+    "clean": "find src -name \"*.js\" -type f -delete"
   },
   "keywords": [],
   "author": "",
@@ -33,7 +33,9 @@
     "ignore": [
       "node_modules"
     ],
-    "watch": [],
+    "watch": [
+      "src"
+    ],
     "execMap": {
       "ts": "ts-node"
     },

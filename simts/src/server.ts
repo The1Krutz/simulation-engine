@@ -3,23 +3,23 @@ import * as http from 'http';
 import * as socketio from 'socket.io';
 import {performance} from 'perf_hooks';
 
-import {Float2} from './src/float2';
-import {Mover} from './src/engine';
+import {float2} from './float2';
+import {mover} from './engine';
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const port = 3000;
 
-enum Events {
-  Connect = 'connection',
-  Disconnect = 'disconnect',
-  Update = 'update',
-  Remove = 'remove'
+enum events {
+  connect = 'connection',
+  disconnect = 'disconnect',
+  update = 'update',
+  remove = 'remove'
 }
 
-enum Rooms {
-  GameUpdates = 'game updates'
+enum rooms {
+  gameUpdates = 'game updates'
 }
 
 
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-io.on(Events.Connect, onConnect);
+io.on(events.connect, onConnect);
 
 server.listen(port, () => {
   console.log(`listening on *:${port}`);
@@ -37,18 +37,18 @@ server.listen(port, () => {
 const frameTime = 33.33; // desired ms between frames. 33.3 is 30fps, 16.6 is 60fps
 setInterval(gameUpdate, frameTime);
 let frameStart = 0;
-let movers: Mover[] = [];
+let movers: mover[] = [];
 
 function onConnect(socket: socketio.Socket) {
   const id = Math.floor(Math.random() * 100000);
   console.log(`user ${id} connected`);
-  socket.join(Rooms.GameUpdates);
+  socket.join(rooms.gameUpdates);
 
   addMover(id);
-  socket.on(Events.Disconnect, () => {
+  socket.on(events.disconnect, () => {
     console.log(`user ${id} disconnected`);
     removeMover(id);
-    io.in(Rooms.GameUpdates).emit(Events.Remove, id);
+    io.in(rooms.gameUpdates).emit(events.remove, id);
   });
 }
 
@@ -57,25 +57,25 @@ function gameUpdate() {
   const deltaTime = (frameEnd - frameStart) / 1000;
   frameStart = frameEnd;
 
-  movers.forEach(z => z.Update(deltaTime));
+  movers.forEach(z => z.update(deltaTime));
 
-  io.in(Rooms.GameUpdates).emit(Events.Update, movers, getMoverString(movers));
+  io.in(rooms.gameUpdates).emit(events.update, movers, getMoverString(movers));
 }
 
 function addMover(id: number) {
-  movers.push(new Mover(
+  movers.push(new mover(
     id,
-    Float2.Random(500, 50),
-    Float2.Random(150, 50)
+    float2.fromRandom(500, 50),
+    float2.fromRandom(150, 50)
   ));
 }
 
 function removeMover(id: number) {
-  movers = movers.filter(z => z.Id !== id);
+  movers = movers.filter(z => z.id !== id);
 }
 
-function getMoverString(movers: Mover[]): string {
+function getMoverString(movers: mover[]): string {
   return movers
-    .map((x: Mover) => x.toString())
+    .map((x: mover) => x.toString())
     .reduce((a: string, b: string) => a + '\n' + b, '');
 }
