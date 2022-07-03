@@ -1,8 +1,9 @@
 import * as express from 'express';
 import * as http from 'http';
-import {Server, Socket} from 'socket.io';
 import {performance} from 'perf_hooks';
+import {Server, Socket} from 'socket.io';
 
+import {events, rooms} from './enums';
 import {mover} from './mover';
 
 const app = express();
@@ -10,21 +11,13 @@ const server = http.createServer(app);
 const io = new Server(server);
 const port = 3000;
 
-enum events {
-  connect = 'connection',
-  disconnect = 'disconnect',
-  update = 'update',
-  remove = 'remove'
-}
 
-enum rooms {
-  gameUpdates = 'game updates'
-}
-
-
-app.use('/static', express.static('public'));
+app.use('/lib', express.static('public'));
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/client/index.html');
+});
+app.get('/index.js', (req, res) => {
+  res.sendFile(__dirname + '/client/index.js');
 });
 
 io.on(events.connect, onConnect);

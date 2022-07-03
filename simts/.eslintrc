@@ -5,10 +5,7 @@
     "sourceType": "module",
     "tsconfigRootDir": "simts"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "jasmine"
-  ],
+  "plugins": ["@typescript-eslint", "jasmine", "simple-import-sort", "import"],
   "env": {
     "es6": true,
     "node": true,
@@ -49,10 +46,7 @@
       }
     ],
     "comma-spacing": "warn",
-    "eqeqeq": [
-      "warn",
-      "smart"
-    ],
+    "eqeqeq": ["warn", "smart"],
     "key-spacing": "warn",
     "keyword-spacing": "warn",
     "no-debugger": "warn",
@@ -61,9 +55,7 @@
     "no-trailing-spaces": "warn",
     "no-unreachable": "warn",
     "no-unused-vars": "off", // disabled for typescript to take over
-    "@typescript-eslint/no-unused-vars": [
-      "warn"
-    ],
+    "@typescript-eslint/no-unused-vars": ["warn"],
     "no-whitespace-before-property": "warn",
     "object-curly-spacing": "warn",
     "quotes": [
@@ -74,26 +66,13 @@
         "avoidEscape": true
       }
     ],
-    "semi": [
-      "warn",
-      "always"
-    ],
+    "semi": ["warn", "always"],
     "semi-spacing": "warn",
-    "sort-imports": [
-      "warn",
-      {
-        "allowSeparatedGroups": true,
-        "ignoreCase": true,
-        "ignoreDeclarationSort": false,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": [
-          "all",
-          "multiple",
-          "none",
-          "single"
-        ]
-      }
-    ],
+    "sort-imports": "off",
+    "simple-import-sort/imports": "warn",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
     "space-before-blocks": "warn",
     "space-in-parens": "warn",
     "space-infix-ops": "off", // disabled for typescript to take over
